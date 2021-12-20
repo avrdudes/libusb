@@ -1,13 +1,9 @@
 #ifndef _USBI_H_
 #define _USBI_H_
 
+#include <stdint.h>
 #include "lusb0_usb.h"
-
 #include "error.h"
-
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned long uint32_t;
 
 extern int usb_debug;
 

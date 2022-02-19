@@ -25,7 +25,7 @@
 #include <string.h>
 
 #ifdef __GNUC__
-#if  defined(_WIN64)
+#if  defined(_WIN64) || (defined(__has_include) && __has_include(<cfgmgr32.h>))
 #include <cfgmgr32.h>
 #else
 #include <ddk/cfgmgr32.h>

@@ -23,6 +23,10 @@ extern "C"
 #include "error.h"
 #include "usbi.h"
 }
+#ifdef __GNUC__
+#undef strcpy
+#define _snprintf snprintf
+#endif
 
 static std::string CreateMessageFromError(HRESULT hr)
 {
@@ -90,7 +94,7 @@ int usb_os_find_busses(struct usb_bus** busses)
     auto bus = static_cast<struct usb_bus*>(std::malloc(sizeof(struct usb_bus)));
     if (bus == nullptr)
     {
-        USBERR("memory allocation failed\n");
+        USBERR0("memory allocation failed\n");
         return -ENOMEM;
     }
 

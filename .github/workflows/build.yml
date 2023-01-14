@@ -1,0 +1,26 @@
+name: Build Binaries
+on: [push, pull_request]
+
+jobs:
+  build-win64-mingw:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: git make mingw-w64-x86_64-toolchain cmake
+      - name: CI-Build
+        run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_VERBOSE_MAKEFILE=True ..
+          make
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Windows 64-bit
+          path: build/liblibusb.a

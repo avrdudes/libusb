@@ -28,7 +28,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Setup cmake
-        uses: jwlawson/actions-setup-cmake@v1.13
+        uses: lukka/get-cmake@latest
       - name: Check CMake Version
         run: cmake --version
       - uses: actions/checkout@v3

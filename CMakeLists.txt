@@ -8,6 +8,7 @@ project(libusb)
 
 add_compile_definitions(_CRT_SECURE_NO_WARNINGS=1)
 add_compile_definitions(LOG_APPNAME="avrdude")
+add_compile_definitions(STRSAFE_NO_DEPRECATE)
 
 add_library(libusb STATIC
     src/descriptors.c

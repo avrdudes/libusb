@@ -41,8 +41,8 @@ jobs:
           mkdir build
           cd build
           cmake ..
-          msbuild libusb.vcxproj -t:rebuild -verbosity:detailed -property:Configuration=Release -property:Platform=x64
-          tree /F /A
+          msbuild libusb.vcxproj -t:rebuild -verbosity:normal -property:Configuration=Release -property:Platform=x64
+          tree /F /A Release
       - uses: actions/upload-artifact@v3
         with:
           name: Windows 64-bit MSVC

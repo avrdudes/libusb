@@ -14,7 +14,7 @@ jobs:
           msystem: MINGW64
           update: true
           install: git make mingw-w64-x86_64-toolchain cmake
-      - name: CI-Build
+      - name: Build MinGW
         run: |
           mkdir build
           cd build
@@ -22,5 +22,28 @@ jobs:
           make
       - uses: actions/upload-artifact@v3
         with:
-          name: Windows 64-bit
+          name: Windows 64-bit MinGW
           path: build/liblibusb.a
+  build-win64-msvc:
+    runs-on: windows-latest
+    steps:
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.13
+      - name: Check CMake Version
+        run: cmake --version
+      - uses: actions/checkout@v3
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+          msbuild-architecture: x64
+      - name: Build MSVC
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          msbuild libusb.vcxproj -t:rebuild -verbosity:diag -property:Configuration=Release -property:Platform=x64
+          tree
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Windows 64-bit MSVC
+          path: build/**.lib
